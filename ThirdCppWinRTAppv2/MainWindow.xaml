@@ -9,7 +9,38 @@
     mc:Ignorable="d"
     Title="ThirdCppWinRTAppv2">
 
-    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-        <Button x:Name="myButton" Click="myButton_Click">Click Me</Button>
-    </StackPanel>
+    <Grid RowSpacing="50" ColumnSpacing="50">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="60"/>
+            <ColumnDefinition Width="60"/>
+            <ColumnDefinition Width="60"/>
+            <ColumnDefinition Width="60"/>
+            <ColumnDefinition Width="60"/>
+            <ColumnDefinition Width="60"/>
+            <ColumnDefinition Width="60"/>
+            <ColumnDefinition Width="60"/>
+            <ColumnDefinition Width="60"/>
+            <ColumnDefinition Width="60"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <local:CalcButton TopText="A" BottomText="LJ" Grid.Row="1" Grid.Column="1"/>
+        <local:CalcButton TopText="B" BottomText="ASR" Grid.Row="1" Grid.Column="2"/>
+        <local:CalcButton TopText="C" BottomText="RLC" Grid.Row="1" Grid.Column="3"/>
+        <local:CalcButton TopText="D" BottomText="RRC" Grid.Row="1" Grid.Column="4"/>
+        <local:CalcButton TopText="E" BottomText="RLCn" Grid.Row="1" Grid.Column="5"/>
+        <local:CalcButton TopText="F" BottomText="RRCn" Grid.Row="1" Grid.Column="6"/>
+        <local:CalcButton TopText="7" BottomText="#B" Grid.Row="1" Grid.Column="7"/>
+        <local:CalcButton TopText="8" BottomText="ABS" Grid.Row="1" Grid.Column="8"/>
+        <local:CalcButton TopText="9" BottomText="DBLR" Grid.Row="1" Grid.Column="9"/>
+        <local:CalcButton TopText="÷−+×" BottomText="DBL÷" Grid.Row="1" Grid.Column="10"/>
+    </Grid>
 </Window>

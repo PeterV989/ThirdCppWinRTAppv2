@@ -1,0 +1,10 @@
+namespace ThirdCppWinRTAppv2
+{
+    [default_interface]
+    runtimeclass CalcButton : Microsoft.UI.Xaml.Controls.UserControl
+    {
+        CalcButton();
+        String TopText;
+        String BottomText;
+    }
+}

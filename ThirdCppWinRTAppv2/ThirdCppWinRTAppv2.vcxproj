@@ -107,9 +107,12 @@
     <Manifest Include="app.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CalcButtom.xaml.h">
-      <DependentUpon>CalcButtom.xaml</DependentUpon>
+    <ClInclude Include="BgLabelControl.h">
+      <DependentUpon>BgLabelControl.cpp</DependentUpon>
       <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="CalcButton.xaml.h">
+      <DependentUpon>CalcButton.xaml</DependentUpon>
     </ClInclude>
     <ClInclude Include="pch.h" />
     <ClInclude Include="App.xaml.h">
@@ -121,15 +124,16 @@
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml" />
-    <Page Include="CalcButtom.xaml">
-      <SubType>Designer</SubType>
-    </Page>
+    <Page Include="CalcButton.xaml" />
     <Page Include="MainWindow.xaml" />
+    <Page Include="Themes\Generic.xaml" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CalcButtom.xaml.cpp">
-      <DependentUpon>CalcButtom.xaml</DependentUpon>
+    <ClCompile Include="BgLabelControl.cpp">
       <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="CalcButton.xaml.cpp">
+      <DependentUpon>CalcButton.xaml</DependentUpon>
     </ClCompile>
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
@@ -143,10 +147,14 @@
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Midl Include="CalcButtom.idl">
-      <DependentUpon>CalcButtom.xaml</DependentUpon>
+    <Midl Include="BgLabelControl.idl">
+      <DependentUpon>BgLabelControl.cpp</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
+	  <Midl Include="CalcButton.idl">
+		  <SubType>Code</SubType>
+		  <DependentUpon>CalcButton.xaml</DependentUpon>
+	  </Midl>
     <Midl Include="MainWindow.idl">
       <SubType>Code</SubType>
       <DependentUpon>MainWindow.xaml</DependentUpon>

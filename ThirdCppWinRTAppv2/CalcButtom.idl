@@ -1,9 +1,0 @@
-namespace ThirdCppWinRTAppv2
-{
-    [default_interface]
-    runtimeclass CalcButtom : Microsoft.UI.Xaml.Controls.UserControl
-    {
-        CalcButtom();
-        Int32 MyProperty;
-    }
-}
