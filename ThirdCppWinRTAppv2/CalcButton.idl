@@ -6,5 +6,7 @@ namespace ThirdCppWinRTAppv2
         CalcButton();
         String TopText;
         String BottomText;
+
+		event Windows.Foundation.TypedEventHandler<CalcButton, Microsoft.UI.Xaml.RoutedEventArgs> CalcButtonClicked;
     }
 }

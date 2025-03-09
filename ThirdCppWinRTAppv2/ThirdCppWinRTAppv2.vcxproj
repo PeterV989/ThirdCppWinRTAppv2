@@ -107,10 +107,7 @@
     <Manifest Include="app.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BgLabelControl.h">
-      <DependentUpon>BgLabelControl.cpp</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
+    <ClInclude Include="BgLabelControl.h" />
     <ClInclude Include="CalcButton.xaml.h">
       <DependentUpon>CalcButton.xaml</DependentUpon>
     </ClInclude>
@@ -129,9 +126,7 @@
     <Page Include="Themes\Generic.xaml" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BgLabelControl.cpp">
-      <SubType>Code</SubType>
-    </ClCompile>
+    <ClCompile Include="BgLabelControl.cpp" />
     <ClCompile Include="CalcButton.xaml.cpp">
       <DependentUpon>CalcButton.xaml</DependentUpon>
     </ClCompile>
@@ -147,14 +142,11 @@
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Midl Include="BgLabelControl.idl">
-      <DependentUpon>BgLabelControl.cpp</DependentUpon>
+    <Midl Include="BgLabelControl.idl" />
+    <Midl Include="CalcButton.idl">
       <SubType>Code</SubType>
+      <DependentUpon>CalcButton.xaml</DependentUpon>
     </Midl>
-	  <Midl Include="CalcButton.idl">
-		  <SubType>Code</SubType>
-		  <DependentUpon>CalcButton.xaml</DependentUpon>
-	  </Midl>
     <Midl Include="MainWindow.idl">
       <SubType>Code</SubType>
       <DependentUpon>MainWindow.xaml</DependentUpon>

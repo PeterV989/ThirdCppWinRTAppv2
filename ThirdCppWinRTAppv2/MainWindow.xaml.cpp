@@ -12,4 +12,27 @@ using namespace Microsoft::UI::Xaml;
 
 namespace winrt::ThirdCppWinRTAppv2::implementation
 {
+	MainWindow::MainWindow()
+	{
+		InitializeComponent();
+
+		for (auto const& child : CalcGrid().Children())
+		{
+			if (auto calcButton = child.try_as<ThirdCppWinRTAppv2::CalcButton>())
+			{
+				calcButton.CalcButtonClicked({ get_weak(), &MainWindow::OnCalcButtonClicked});
+			};
+		}
+	}
+
+	void MainWindow::OnCalcButtonClicked(ThirdCppWinRTAppv2::CalcButton const& sender, winrt::Windows::Foundation::IInspectable const& /* args */)
+	{
+		ThirdCppWinRTAppv2::CalcButton clickedButton = sender.try_as<ThirdCppWinRTAppv2::CalcButton>();
+
+		if (clickedButton) {
+			hstring name = clickedButton.Name();
+			OutputDebugStringW(name.c_str());
+		}
+	}
+
 }

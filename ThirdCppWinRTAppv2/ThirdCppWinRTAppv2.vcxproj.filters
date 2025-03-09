@@ -11,6 +11,7 @@
   <ItemGroup>
     <Midl Include="MainWindow.idl" />
     <Midl Include="CalcButton.idl" />
+    <Midl Include="BgLabelControl.idl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -19,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
+    <ClInclude Include="BgLabelControl.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">

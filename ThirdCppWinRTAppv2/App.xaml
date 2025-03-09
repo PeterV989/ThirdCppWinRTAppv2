@@ -11,6 +11,18 @@
                 <!-- Other merged dictionaries here -->
             </ResourceDictionary.MergedDictionaries>
             <!-- Other app resources here -->
+            <Style x:Key="g_Button" TargetType="Button">
+                <Style.Setters>
+                    <Setter Property="Background" Value="#E1A300"/>
+                    <Setter Property="Foreground" Value="#413D3C"/>
+                </Style.Setters>
+            </Style>
+            <Style x:Key="f_Button" TargetType="Button">
+                <Style.Setters>
+                    <Setter Property="Background" Value="#58ADC9"/>
+                    <Setter Property="Foreground" Value="#413D3C"/>
+                </Style.Setters>
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

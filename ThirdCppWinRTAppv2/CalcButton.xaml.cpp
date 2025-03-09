@@ -12,8 +12,19 @@ using namespace Microsoft::UI::Xaml;
 
 namespace winrt::ThirdCppWinRTAppv2::implementation
 {
-	void CalcButton::myCalcButton_Click(winrt::Windows::Foundation::IInspectable const&, winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
+	void CalcButton::myCalcButton_Click(winrt::Windows::Foundation::IInspectable const&, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& args)
 	{
+		m_clickToken(*this, args);
+	}
+
+	winrt::event_token CalcButton::CalcButtonClicked(winrt::Windows::Foundation::TypedEventHandler<ThirdCppWinRTAppv2::CalcButton, winrt::Microsoft::UI::Xaml::RoutedEventArgs> const& handler)
+	{
+		return m_clickToken.add(handler);
+	}
+
+	void CalcButton::CalcButtonClicked(winrt::event_token const& token) noexcept
+	{
+		m_clickToken.remove(token);
 	}
 
 	hstring CalcButton::TopText()

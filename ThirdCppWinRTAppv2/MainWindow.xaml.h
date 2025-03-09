@@ -7,12 +7,9 @@ namespace winrt::ThirdCppWinRTAppv2::implementation
 {
     struct MainWindow : MainWindowT<MainWindow>
     {
-        MainWindow()
-        {
-            // Xaml objects should not call InitializeComponent during construction.
-            // See https://github.com/microsoft/cppwinrt/tree/master/nuget#initializecomponent
-        }
+        MainWindow();
 
+		void OnCalcButtonClicked(ThirdCppWinRTAppv2::CalcButton const&, winrt::Windows::Foundation::IInspectable const&);
     };
 }
 
