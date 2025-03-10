@@ -11,18 +11,21 @@
                 <!-- Other merged dictionaries here -->
             </ResourceDictionary.MergedDictionaries>
             <!-- Other app resources here -->
-            <Style x:Key="g_Button" TargetType="Button">
-                <Style.Setters>
-                    <Setter Property="Background" Value="#E1A300"/>
-                    <Setter Property="Foreground" Value="#413D3C"/>
-                </Style.Setters>
+            <!--<Style x:Key="Default" TargetType="local:CalcButton">
+                <Setter Property="Background" Value="#413D3C"/>
+                <Setter Property="TopTextBlock.Foreground" Value="#FFFFFF"/>
+                <Setter Property="BottomTextBlock.Foreground" Value="#FFFFFF"/>
             </Style>
-            <Style x:Key="f_Button" TargetType="Button">
-                <Style.Setters>
-                    <Setter Property="Background" Value="#58ADC9"/>
-                    <Setter Property="Foreground" Value="#413D3C"/>
-                </Style.Setters>
+            <Style x:Key="g_Button" TargetType="local:CalcButton">
+                <Setter Property="Background" Value="#FFD700"/>
+                <Setter Property="TopTextBlock.Foreground" Value="#413D3C"/>
+                <Setter Property="BottomTextBlock.Foreground" Value="#413D3C"/>
             </Style>
+            <Style x:Key="f_Button" TargetType="local:CalcButton">
+                <Setter Property="Background" Value="#58ADC9"/>
+                <Setter Property="TopTextBlock.Foreground" Value="#413D3C"/>
+                <Setter Property="BottomTextBlock.Foreground" Value="#413D3C"/>
+            </Style>-->
         </ResourceDictionary>
     </Application.Resources>
 </Application>

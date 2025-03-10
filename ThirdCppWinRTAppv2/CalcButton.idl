@@ -1,12 +1,16 @@
 namespace ThirdCppWinRTAppv2
 {
-    [default_interface]
-    runtimeclass CalcButton : Microsoft.UI.Xaml.Controls.UserControl
-    {
-        CalcButton();
-        String TopText;
-        String BottomText;
+	[default_interface]
+	runtimeclass CalcButton : Microsoft.UI.Xaml.Controls.UserControl
+	{
+		CalcButton();
+		String TopText;
+		String BottomText;
+
+		Microsoft.UI.Xaml.Media.Brush ButtonBackground;
+	    Microsoft.UI.Xaml.Media.Brush TopTextForeground;
+		Microsoft.UI.Xaml.Media.Brush BottomTextForeground;
 
 		event Windows.Foundation.TypedEventHandler<CalcButton, Microsoft.UI.Xaml.RoutedEventArgs> CalcButtonClicked;
-    }
+	}
 }

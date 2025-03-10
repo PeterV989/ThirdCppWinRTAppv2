@@ -9,10 +9,10 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Button x:Name="myButton" Click="myCalcButton_Click" Width="50" Padding="5" Background="#413D3C">
+    <Button x:Name="myButton" Click="myCalcButton_Click" Foreground="{x:Bind ButtonBackground, Mode=OneWay}" Width="50" Padding="5" >
         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBlock Text="{x:Bind TopText}" Foreground="White" HorizontalAlignment="Center" FontWeight="Bold"/>
-            <TextBlock Text="{x:Bind BottomText}" Foreground="#58ADC9" HorizontalAlignment="Center" FontWeight="Bold" />
+            <TextBlock x:Name="TopTextBlock" Text="{x:Bind TopText}" Foreground="{x:Bind TopTextForeground, Mode=OneWay}" HorizontalAlignment="Center" FontWeight="Bold"/>
+            <TextBlock x:Name="BottomTextBlock" Text="{x:Bind BottomText}" Foreground="{x:Bind BottomTextForeground, Mode=OneWay}" HorizontalAlignment="Center" FontWeight="Bold" />
         </StackPanel>
     </Button>
 </UserControl>
