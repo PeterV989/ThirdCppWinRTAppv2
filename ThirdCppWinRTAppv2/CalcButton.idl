@@ -4,12 +4,15 @@ namespace ThirdCppWinRTAppv2
 	runtimeclass CalcButton : Microsoft.UI.Xaml.Controls.UserControl
 	{
 		CalcButton();
-		String TopText;
-		String BottomText;
+		String TopText{ get; set; };
+		String BottomText{ get; set; };
 
-		Microsoft.UI.Xaml.Media.Brush ButtonBackground;
-	    Microsoft.UI.Xaml.Media.Brush TopTextForeground;
-		Microsoft.UI.Xaml.Media.Brush BottomTextForeground;
+		Microsoft.UI.Xaml.Media.Brush ButtonBackground{ get; set; };
+		Microsoft.UI.Xaml.Media.Brush TopTextForeground{ get; set; };
+		Microsoft.UI.Xaml.Media.Brush BottomTextForeground{ get; set; };
+
+		Windows.UI.Text.FontWeight TopTextFontWeight{ get; set; };
+		Windows.UI.Text.FontWeight BottomTextFontWeight{ get; set; };
 
 		event Windows.Foundation.TypedEventHandler<CalcButton, Microsoft.UI.Xaml.RoutedEventArgs> CalcButtonClicked;
 	}

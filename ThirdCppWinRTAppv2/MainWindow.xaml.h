@@ -1,7 +1,6 @@
 #pragma once
 
 #include "MainWindow.g.h"
-#include "BgLabelControl.h"
 
 namespace winrt::ThirdCppWinRTAppv2::implementation
 {
@@ -10,6 +9,10 @@ namespace winrt::ThirdCppWinRTAppv2::implementation
         MainWindow();
 
 		void OnCalcButtonClicked(ThirdCppWinRTAppv2::CalcButton const&, winrt::Windows::Foundation::IInspectable const&);
+
+    private:
+		bool m_isFKeyPressed{ false };
+		bool m_isGKeyPressed{ false };
     };
 }
 

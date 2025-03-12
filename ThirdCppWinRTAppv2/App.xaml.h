@@ -1,7 +1,6 @@
 #pragma once
 
 #include "App.xaml.g.h"
-#include "BgLabelControl.h"
 
 namespace winrt::ThirdCppWinRTAppv2::implementation
 {
