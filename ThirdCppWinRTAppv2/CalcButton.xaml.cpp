@@ -1,8 +1,7 @@
 #include "pch.h"
 #include "CalcButton.xaml.h"
-#if __has_include("CalcButton.g.cpp")
 #include "CalcButton.g.cpp"
-#endif
+
 
 using namespace winrt;
 using namespace Microsoft::UI::Xaml;
