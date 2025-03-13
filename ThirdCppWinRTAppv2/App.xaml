@@ -11,11 +11,23 @@
                 <!-- Other merged dictionaries here -->
             </ResourceDictionary.MergedDictionaries>
             <!-- Other app resources here -->
-            <Style TargetType="local:CalcButton">
-                <Setter Property="ButtonBackground" Value="Black" />
-                <Setter Property="TopTextForeground" Value="White" />
-                <Setter Property="BottomTextForeground" Value="Gold" />
-            </Style>
+            <!--<Style TargetType="local:CalcButton">
+                <Setter Property="ButtonBackground" >
+                    <Setter.Value>
+                        <SolidColorBrush Color="Black" />
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="TopTextForeground"  >
+                    <Setter.Value>
+                        <SolidColorBrush Color="White" />
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="BottomTextForeground" >
+                    <Setter.Value>
+                        <SolidColorBrush Color="Blue" />
+                    </Setter.Value>
+                </Setter>
+            </Style>-->
         </ResourceDictionary>
     </Application.Resources>
 </Application>
