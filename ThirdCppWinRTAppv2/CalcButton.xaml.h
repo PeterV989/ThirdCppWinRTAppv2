@@ -8,8 +8,6 @@ namespace winrt::ThirdCppWinRTAppv2::implementation
 	{
 		CalcButton();
 
-		static void OnPropertyChanged(Microsoft::UI::Xaml::DependencyObject const& d, Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
-		
 		winrt::hstring TopText();
 		void TopText(hstring const& value);
 
@@ -44,6 +42,11 @@ namespace winrt::ThirdCppWinRTAppv2::implementation
 		winrt::event_token CalcButtonClicked(winrt::Windows::Foundation::TypedEventHandler<ThirdCppWinRTAppv2::CalcButton, winrt::Microsoft::UI::Xaml::RoutedEventArgs> const& handler);
 		void CalcButtonClicked(winrt::event_token const& token) noexcept;
 		void myCalcButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& args);
+
+		winrt::event_token PropertyChanged(winrt::Microsoft::UI::Xaml::Data::PropertyChangedEventHandler const& handler);
+		void PropertyChanged(winrt::event_token const& token) noexcept;
+		static void OnPropertyChanged(Microsoft::UI::Xaml::DependencyObject const& d, Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
+		
 	private:
 		static winrt::Microsoft::UI::Xaml::DependencyProperty m_topTextProperty;
 		static winrt::Microsoft::UI::Xaml::DependencyProperty m_bottomTextProperty;
@@ -53,14 +56,14 @@ namespace winrt::ThirdCppWinRTAppv2::implementation
 		static winrt::Microsoft::UI::Xaml::DependencyProperty m_bottomTextForegroundProperty;
 
 		static bool m_isFirstTime;
-		static winrt::Microsoft::UI::Xaml::Media::Brush m_buttonBrush;
-		static winrt::Microsoft::UI::Xaml::Media::Brush m_topTextBrush;
-		static winrt::Microsoft::UI::Xaml::Media::Brush m_bottomTextBrush;
+		static winrt::Microsoft::UI::Xaml::Media::Brush m_buttonBackgroundDefaultBrush;
+		static winrt::Microsoft::UI::Xaml::Media::Brush m_topTextForegroundDefaultBrush;
+		static winrt::Microsoft::UI::Xaml::Media::Brush m_bottomTextForegroundDefaultBrush;
 		static winrt::Windows::UI::Text::FontWeight m_boldFontWeight;
 		static winrt::Windows::UI::Text::FontWeight m_normalFontWeight;
-
-		//static winrt::Microsoft::UI::Xaml::DependencyProperty m_topTextFontWeight;
-		//static winrt::Microsoft::UI::Xaml::DependencyProperty m_bottomTextFontWeight;
+		winrt::Microsoft::UI::Xaml::Media::Brush m_topTextForegroundBrush{ nullptr };
+		winrt::Microsoft::UI::Xaml::Media::Brush m_bottomTextForegroundBrush{ nullptr };
+		winrt::Microsoft::UI::Xaml::Media::Brush m_buttonBackgroundBrush{ nullptr };
 
 		static winrt::Microsoft::UI::Xaml::DependencyProperty m_topTextFontWeightProperty;
 		static winrt::Microsoft::UI::Xaml::DependencyProperty m_bottomTextFontWeightProperty;
@@ -71,8 +74,7 @@ namespace winrt::ThirdCppWinRTAppv2::implementation
 		winrt::Microsoft::UI::Xaml::Controls::TextBlock m_bottomTextBlock{ nullptr };
 
 		winrt::event<winrt::Windows::Foundation::TypedEventHandler<ThirdCppWinRTAppv2::CalcButton, winrt::Microsoft::UI::Xaml::RoutedEventArgs>> m_clickToken;
-
-		// static winrt::Windows::UI::Color StringToColor(winrt::hstring const&);
+		winrt::event<winrt::Microsoft::UI::Xaml::Data::PropertyChangedEventHandler> m_propertyChangedToken;
 
 		static void OnButtonBackgroundChanged(Microsoft::UI::Xaml::DependencyObject const& d, Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
 		static void OnTextForegroundChanged(Microsoft::UI::Xaml::DependencyObject const& d, Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& e);

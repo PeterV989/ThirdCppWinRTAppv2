@@ -9,6 +9,26 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
+    <UserControl.Resources>
+        <Style TargetType="local:CalcButton">
+            <Setter Property="ButtonBackground" >
+                <Setter.Value>
+                    <SolidColorBrush Color="Black" />
+                </Setter.Value>
+            </Setter>
+            <Setter Property="TopTextForeground"  >
+                <Setter.Value>
+                    <SolidColorBrush Color="White" />
+                </Setter.Value>
+            </Setter>
+            <Setter Property="BottomTextForeground" >
+                <Setter.Value>
+                    <SolidColorBrush Color="Blue" />
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
     <Button x:Name="myButton" Click="myCalcButton_Click" Background="{x:Bind ButtonBackground, Mode=OneWay}" Width="50" Padding="5" >
         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
             <TextBlock x:Name="TopTextBlock" Text="{x:Bind TopText}" Foreground="{x:Bind TopTextForeground, Mode=OneWay}" HorizontalAlignment="Center" FontWeight="{x:Bind TopTextFontWeight, Mode=OneWay}"/>

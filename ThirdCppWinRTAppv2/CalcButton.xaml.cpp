@@ -37,6 +37,16 @@ namespace winrt::ThirdCppWinRTAppv2::implementation
 		m_clickToken.remove(token);
 	}
 
+	winrt::event_token CalcButton::PropertyChanged(winrt::Microsoft::UI::Xaml::Data::PropertyChangedEventHandler const& handler)
+	{
+		return m_propertyChangedToken.add(handler);
+	};
+
+	void CalcButton::PropertyChanged(winrt::event_token const& token) noexcept
+	{
+		m_propertyChangedToken.remove(token);
+	};
+
 	// DependencyProperty Getters and Setters
 
 	winrt::hstring CalcButton::TopText()
@@ -66,6 +76,10 @@ namespace winrt::ThirdCppWinRTAppv2::implementation
 
 	void CalcButton::ButtonBackground(winrt::Microsoft::UI::Xaml::Media::Brush const& value)
 	{
+		if (m_buttonBackgroundBrush != value) {
+			m_buttonBackgroundBrush = value;
+			m_propertyChangedToken(*this, winrt::Microsoft::UI::Xaml::Data::PropertyChangedEventArgs{ L"ButtonBackground" });
+		};
 		SetValue(m_buttonBackgroundProperty, winrt::box_value(value));
 	}
 
@@ -76,6 +90,10 @@ namespace winrt::ThirdCppWinRTAppv2::implementation
 
 	void CalcButton::TopTextForeground(winrt::Microsoft::UI::Xaml::Media::Brush const& value)
 	{
+		if (m_topTextForegroundBrush != value) {
+			m_topTextForegroundBrush = value;
+			m_propertyChangedToken(*this, winrt::Microsoft::UI::Xaml::Data::PropertyChangedEventArgs{ L"TopTextForeground" });
+		};
 		SetValue(m_topTextForegroundProperty, winrt::box_value(value));
 	}
 
@@ -86,6 +104,10 @@ namespace winrt::ThirdCppWinRTAppv2::implementation
 
 	void CalcButton::BottomTextForeground(winrt::Microsoft::UI::Xaml::Media::Brush const& value)
 	{
+		if (m_bottomTextForegroundBrush != value) {
+			m_bottomTextForegroundBrush = value;
+			m_propertyChangedToken(*this, winrt::Microsoft::UI::Xaml::Data::PropertyChangedEventArgs{ L"BottomTextForeground" });
+		};
 		SetValue(m_bottomTextForegroundProperty, winrt::box_value(value));
 	}
 
@@ -235,9 +257,9 @@ namespace winrt::ThirdCppWinRTAppv2::implementation
 			winrt::xaml_typename<ThirdCppWinRTAppv2::CalcButton>(),
 			Microsoft::UI::Xaml::PropertyMetadata{ box_value(L"Default Bottom"), Microsoft::UI::Xaml::PropertyChangedCallback{ &CalcButton::OnPropertyChanged } });
 	bool CalcButton::m_isFirstTime = true;
-	//winrt::Microsoft::UI::Xaml::Media::Brush CalcButton::m_buttonBrush{};
-	//winrt::Microsoft::UI::Xaml::Media::Brush CalcButton::m_topTextBrush{};
-	//winrt::Microsoft::UI::Xaml::Media::Brush CalcButton::m_bottomTextBrush{};
+	winrt::Microsoft::UI::Xaml::Media::Brush CalcButton::m_buttonBackgroundDefaultBrush{nullptr};
+	winrt::Microsoft::UI::Xaml::Media::Brush CalcButton::m_topTextForegroundDefaultBrush{nullptr};
+	winrt::Microsoft::UI::Xaml::Media::Brush CalcButton::m_bottomTextForegroundDefaultBrush{nullptr};
 	winrt::Windows::UI::Text::FontWeight CalcButton::m_boldFontWeight{};
 	winrt::Windows::UI::Text::FontWeight CalcButton::m_normalFontWeight{};
 
@@ -245,16 +267,16 @@ namespace winrt::ThirdCppWinRTAppv2::implementation
 	{
 		if (m_isFirstTime)
 		{
-			m_buttonBrush = winrt::Microsoft::UI::Xaml::Media::SolidColorBrush{ winrt::Windows::UI::ColorHelper::FromArgb(255, 65, 61, 60) };
-			m_topTextBrush = winrt::Microsoft::UI::Xaml::Media::SolidColorBrush{ winrt::Windows::UI::ColorHelper::FromArgb(255, 255, 255, 255) };
-			m_bottomTextBrush = winrt::Microsoft::UI::Xaml::Media::SolidColorBrush{ winrt::Windows::UI::ColorHelper::FromArgb(255, 88, 173, 201) };
+			m_buttonBackgroundDefaultBrush = winrt::Microsoft::UI::Xaml::Media::SolidColorBrush{ winrt::Windows::UI::ColorHelper::FromArgb(255, 65, 61, 60) };
+			m_topTextForegroundDefaultBrush = winrt::Microsoft::UI::Xaml::Media::SolidColorBrush{ winrt::Windows::UI::ColorHelper::FromArgb(255, 255, 255, 255) };
+			m_bottomTextForegroundDefaultBrush = winrt::Microsoft::UI::Xaml::Media::SolidColorBrush{ winrt::Windows::UI::ColorHelper::FromArgb(255, 88, 173, 201) };
 			m_boldFontWeight = winrt::Windows::UI::Text::FontWeights::Bold();
 			m_normalFontWeight = winrt::Windows::UI::Text::FontWeights::Normal();
 			m_isFirstTime = false;
 		};
-		SetValue(m_buttonBackgroundProperty, m_buttonBrush);
-		SetValue(m_topTextForegroundProperty, m_topTextBrush);
-		SetValue(m_bottomTextForegroundProperty, m_bottomTextBrush);
+		SetValue(m_buttonBackgroundProperty, m_buttonBackgroundDefaultBrush);
+		SetValue(m_topTextForegroundProperty, m_topTextForegroundDefaultBrush);
+		SetValue(m_bottomTextForegroundProperty, m_bottomTextForegroundDefaultBrush);
 		SetValue(m_topTextFontWeightProperty, winrt::box_value(m_boldFontWeight));
 		SetValue(m_bottomTextFontWeightProperty, winrt::box_value(m_normalFontWeight));
 	}
