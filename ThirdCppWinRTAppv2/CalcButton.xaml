@@ -9,7 +9,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <UserControl.Resources>
+    <!--<UserControl.Resources>
         <Style TargetType="local:CalcButton">
             <Setter Property="ButtonBackground" >
                 <Setter.Value>
@@ -27,7 +27,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-    </UserControl.Resources>
+    </UserControl.Resources>-->
 
     <Button x:Name="myButton" Click="myCalcButton_Click" Background="{x:Bind ButtonBackground, Mode=OneWay}" Width="50" Padding="5" >
         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">

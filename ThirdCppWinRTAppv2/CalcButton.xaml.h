@@ -1,12 +1,15 @@
 #pragma once
 
+#include <winrt/Microsoft.UI.Xaml.Data.h>
 #include "CalcButton.g.h"
 
 namespace winrt::ThirdCppWinRTAppv2::implementation
 {
-	struct CalcButton : CalcButtonT<CalcButton>
+	struct CalcButton : CalcButtonT<CalcButton, Microsoft::UI::Xaml::Controls::UserControl>
 	{
 		CalcButton();
+
+		// Getters & Setters
 
 		winrt::hstring TopText();
 		void TopText(hstring const& value);
@@ -20,12 +23,6 @@ namespace winrt::ThirdCppWinRTAppv2::implementation
 		winrt::Windows::UI::Text::FontWeight BottomTextFontWeight();
 		void BottomTextFontWeight(winrt::Windows::UI::Text::FontWeight const& value);
 
-		static winrt::Microsoft::UI::Xaml::DependencyProperty TopTextProperty();
-		static winrt::Microsoft::UI::Xaml::DependencyProperty BottomTextProperty();
-
-		static winrt::Microsoft::UI::Xaml::DependencyProperty TopTextFontWeightProperty();
-		static winrt::Microsoft::UI::Xaml::DependencyProperty BottomTextFontWeightProperty();
-
 		winrt::Microsoft::UI::Xaml::Media::Brush ButtonBackground();
 		void ButtonBackground(winrt::Microsoft::UI::Xaml::Media::Brush const& value);
 
@@ -35,16 +32,21 @@ namespace winrt::ThirdCppWinRTAppv2::implementation
 		winrt::Microsoft::UI::Xaml::Media::Brush BottomTextForeground();
 		void BottomTextForeground(winrt::Microsoft::UI::Xaml::Media::Brush const& value);
 
+		// Dependency Property
 		static winrt::Microsoft::UI::Xaml::DependencyProperty ButtonBackgroundProperty();
 		static winrt::Microsoft::UI::Xaml::DependencyProperty TopTextForegroundProperty();
 		static winrt::Microsoft::UI::Xaml::DependencyProperty BottomTextForegroundProperty();
+		static winrt::Microsoft::UI::Xaml::DependencyProperty TopTextProperty();
+		static winrt::Microsoft::UI::Xaml::DependencyProperty BottomTextProperty();
+		static winrt::Microsoft::UI::Xaml::DependencyProperty TopTextFontWeightProperty();
+		static winrt::Microsoft::UI::Xaml::DependencyProperty BottomTextFontWeightProperty();
 
 		winrt::event_token CalcButtonClicked(winrt::Windows::Foundation::TypedEventHandler<ThirdCppWinRTAppv2::CalcButton, winrt::Microsoft::UI::Xaml::RoutedEventArgs> const& handler);
 		void CalcButtonClicked(winrt::event_token const& token) noexcept;
 		void myCalcButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& args);
 
-		winrt::event_token PropertyChanged(winrt::Microsoft::UI::Xaml::Data::PropertyChangedEventHandler const& handler);
-		void PropertyChanged(winrt::event_token const& token) noexcept;
+		winrt::event_token myPropertyChanged(winrt::Microsoft::UI::Xaml::Data::PropertyChangedEventHandler const& handler);
+		void myPropertyChanged(winrt::event_token const& token) noexcept;
 		static void OnPropertyChanged(Microsoft::UI::Xaml::DependencyObject const& d, Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
 		
 	private:
@@ -74,7 +76,7 @@ namespace winrt::ThirdCppWinRTAppv2::implementation
 		winrt::Microsoft::UI::Xaml::Controls::TextBlock m_bottomTextBlock{ nullptr };
 
 		winrt::event<winrt::Windows::Foundation::TypedEventHandler<ThirdCppWinRTAppv2::CalcButton, winrt::Microsoft::UI::Xaml::RoutedEventArgs>> m_clickToken;
-		winrt::event<winrt::Microsoft::UI::Xaml::Data::PropertyChangedEventHandler> m_propertyChangedToken;
+		winrt::event<winrt::Microsoft::UI::Xaml::Data::PropertyChangedEventHandler> PropertyChanged;
 
 		static void OnButtonBackgroundChanged(Microsoft::UI::Xaml::DependencyObject const& d, Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
 		static void OnTextForegroundChanged(Microsoft::UI::Xaml::DependencyObject const& d, Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& e);

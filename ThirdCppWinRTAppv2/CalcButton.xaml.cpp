@@ -1,4 +1,7 @@
 #include "pch.h"
+#include <locale>
+#include <sstream>
+#include <Windows.h>
 #include "CalcButton.xaml.h"
 #include "CalcButton.g.cpp"
 
@@ -19,7 +22,15 @@ namespace winrt::ThirdCppWinRTAppv2::implementation
 		InitializeDefaultBrushes();
 
 		m_topTextBlock = FindName(L"TopTextBlock").as<Microsoft::UI::Xaml::Controls::TextBlock>();
+		if (!m_topTextBlock)
+		{
+			throw hresult_error(E_POINTER, L"TopTextBlock not found");
+		}
 		m_bottomTextBlock = FindName(L"BottomTextBlock").as<Microsoft::UI::Xaml::Controls::TextBlock>();
+		if (!m_bottomTextBlock)
+		{
+			throw hresult_error(E_POINTER, L"bottomTextBlock not found");
+		}
 	};
 
 	void CalcButton::myCalcButton_Click(winrt::Windows::Foundation::IInspectable const&, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& args)
@@ -37,14 +48,14 @@ namespace winrt::ThirdCppWinRTAppv2::implementation
 		m_clickToken.remove(token);
 	}
 
-	winrt::event_token CalcButton::PropertyChanged(winrt::Microsoft::UI::Xaml::Data::PropertyChangedEventHandler const& handler)
+	winrt::event_token CalcButton::myPropertyChanged(winrt::Microsoft::UI::Xaml::Data::PropertyChangedEventHandler const& handler)
 	{
-		return m_propertyChangedToken.add(handler);
+		return PropertyChanged.add(handler);
 	};
 
-	void CalcButton::PropertyChanged(winrt::event_token const& token) noexcept
+	void CalcButton::myPropertyChanged(winrt::event_token const& token) noexcept
 	{
-		m_propertyChangedToken.remove(token);
+		PropertyChanged.remove(token);
 	};
 
 	// DependencyProperty Getters and Setters
@@ -57,6 +68,7 @@ namespace winrt::ThirdCppWinRTAppv2::implementation
 	void CalcButton::TopText(winrt::hstring const& value)
 	{
 		SetValue(m_topTextProperty, winrt::box_value(value));
+		PropertyChanged(*this, winrt::Microsoft::UI::Xaml::Data::PropertyChangedEventArgs{ L"TopText" });
 	}
 
 	winrt::hstring CalcButton::BottomText()
@@ -67,6 +79,7 @@ namespace winrt::ThirdCppWinRTAppv2::implementation
 	void CalcButton::BottomText(winrt::hstring const& value)
 	{
 		SetValue(m_bottomTextProperty, winrt::box_value(value));
+		PropertyChanged(*this, winrt::Microsoft::UI::Xaml::Data::PropertyChangedEventArgs{ L"BottomText" });
 	}
 
 	winrt::Microsoft::UI::Xaml::Media::Brush CalcButton::ButtonBackground()
@@ -76,11 +89,8 @@ namespace winrt::ThirdCppWinRTAppv2::implementation
 
 	void CalcButton::ButtonBackground(winrt::Microsoft::UI::Xaml::Media::Brush const& value)
 	{
-		if (m_buttonBackgroundBrush != value) {
-			m_buttonBackgroundBrush = value;
-			m_propertyChangedToken(*this, winrt::Microsoft::UI::Xaml::Data::PropertyChangedEventArgs{ L"ButtonBackground" });
-		};
 		SetValue(m_buttonBackgroundProperty, winrt::box_value(value));
+		PropertyChanged(*this, winrt::Microsoft::UI::Xaml::Data::PropertyChangedEventArgs{ L"ButtonBackground" });
 	}
 
 	winrt::Microsoft::UI::Xaml::Media::Brush CalcButton::TopTextForeground()
@@ -90,11 +100,8 @@ namespace winrt::ThirdCppWinRTAppv2::implementation
 
 	void CalcButton::TopTextForeground(winrt::Microsoft::UI::Xaml::Media::Brush const& value)
 	{
-		if (m_topTextForegroundBrush != value) {
-			m_topTextForegroundBrush = value;
-			m_propertyChangedToken(*this, winrt::Microsoft::UI::Xaml::Data::PropertyChangedEventArgs{ L"TopTextForeground" });
-		};
 		SetValue(m_topTextForegroundProperty, winrt::box_value(value));
+		PropertyChanged(*this, winrt::Microsoft::UI::Xaml::Data::PropertyChangedEventArgs{ L"TopTextForeground" });
 	}
 
 	winrt::Microsoft::UI::Xaml::Media::Brush CalcButton::BottomTextForeground()
@@ -104,11 +111,8 @@ namespace winrt::ThirdCppWinRTAppv2::implementation
 
 	void CalcButton::BottomTextForeground(winrt::Microsoft::UI::Xaml::Media::Brush const& value)
 	{
-		if (m_bottomTextForegroundBrush != value) {
-			m_bottomTextForegroundBrush = value;
-			m_propertyChangedToken(*this, winrt::Microsoft::UI::Xaml::Data::PropertyChangedEventArgs{ L"BottomTextForeground" });
-		};
 		SetValue(m_bottomTextForegroundProperty, winrt::box_value(value));
+		PropertyChanged(*this, winrt::Microsoft::UI::Xaml::Data::PropertyChangedEventArgs{ L"BottomTextForeground" });
 	}
 
 	winrt::Windows::UI::Text::FontWeight CalcButton::TopTextFontWeight()
@@ -119,6 +123,7 @@ namespace winrt::ThirdCppWinRTAppv2::implementation
 	void CalcButton::TopTextFontWeight(winrt::Windows::UI::Text::FontWeight const& value)
 	{
 		SetValue(m_topTextFontWeightProperty, winrt::box_value(value));
+		PropertyChanged(*this, winrt::Microsoft::UI::Xaml::Data::PropertyChangedEventArgs{L"topTextFontWeight" });
 	}
 
 	winrt::Windows::UI::Text::FontWeight CalcButton::BottomTextFontWeight()
@@ -129,6 +134,7 @@ namespace winrt::ThirdCppWinRTAppv2::implementation
 	void CalcButton::BottomTextFontWeight(winrt::Windows::UI::Text::FontWeight const& value)
 	{
 		SetValue(m_bottomTextFontWeightProperty, winrt::box_value(value));
+		PropertyChanged(*this, winrt::Microsoft::UI::Xaml::Data::PropertyChangedEventArgs{ L"bottomTextFontWeight" });
 	}
 
 	// DependencyProperty Property Getters
@@ -267,18 +273,76 @@ namespace winrt::ThirdCppWinRTAppv2::implementation
 	{
 		if (m_isFirstTime)
 		{
-			m_buttonBackgroundDefaultBrush = winrt::Microsoft::UI::Xaml::Media::SolidColorBrush{ winrt::Windows::UI::ColorHelper::FromArgb(255, 65, 61, 60) };
-			m_topTextForegroundDefaultBrush = winrt::Microsoft::UI::Xaml::Media::SolidColorBrush{ winrt::Windows::UI::ColorHelper::FromArgb(255, 255, 255, 255) };
-			m_bottomTextForegroundDefaultBrush = winrt::Microsoft::UI::Xaml::Media::SolidColorBrush{ winrt::Windows::UI::ColorHelper::FromArgb(255, 88, 173, 201) };
+			try {
+				auto temp = winrt::Windows::UI::ColorHelper::FromArgb(255, 65, 61, 60);
+				temp = winrt::Windows::UI::ColorHelper::FromArgb(255, 0, 255, 0);
+				m_buttonBackgroundDefaultBrush = winrt::Microsoft::UI::Xaml::Media::SolidColorBrush{ temp };
+				if (const auto cbb = m_buttonBackgroundBrush.try_as<winrt::Microsoft::UI::Xaml::Media::SolidColorBrush>())
+				{
+					const auto cb = cbb.Color();
+					std::wstringstream colors;
+					colors << L"Button Background Brush Colors (" << cb.A << L", " << cb.R << L", " << cb.G << L", " << cb.B << L")\n";
+					OutputDebugStringW(colors.str().c_str());
+				}
+			}
+			catch (const std::exception& e)
+			{
+				std::string message = e.what();
+				int size_needed = MultiByteToWideChar(CP_UTF8, 0, message.c_str(), (int)message.size(), NULL, 0);
+				std::wstring wide_message(size_needed, 0);
+				MultiByteToWideChar(CP_UTF8, 0, message.c_str(), (int)message.size(), &wide_message[0], size_needed);
+				OutputDebugString(wide_message.c_str());
+			}
+			try {
+				auto temp = winrt::Windows::UI::ColorHelper::FromArgb(255, 255, 255, 255);
+				m_topTextForegroundDefaultBrush = winrt::Microsoft::UI::Xaml::Media::SolidColorBrush{ temp };
+				if (const auto cbb = m_topTextForegroundBrush.try_as<winrt::Microsoft::UI::Xaml::Media::SolidColorBrush>())
+				{
+					const auto cb = cbb.Color();
+					std::wstringstream colors;
+					colors << L"Top Text Foreground Brush Colors (" << cb.A << L", " << cb.R << L", " << cb.G << L", " << cb.B << L")\n";
+					OutputDebugStringW(colors.str().c_str());
+				}
+			}
+			catch (const std::exception& e)
+			{
+				std::string message = e.what();
+				int size_needed = MultiByteToWideChar(CP_UTF8, 0, message.c_str(), (int)message.size(), NULL, 0);
+				std::wstring wide_message(size_needed, 0);
+				MultiByteToWideChar(CP_UTF8, 0, message.c_str(), (int)message.size(), &wide_message[0], size_needed);
+				OutputDebugString(wide_message.c_str());
+			}
+			try {
+				auto temp = winrt::Windows::UI::ColorHelper::FromArgb(255, 88, 173, 201);
+				m_bottomTextForegroundDefaultBrush = winrt::Microsoft::UI::Xaml::Media::SolidColorBrush{ temp };
+				if (const auto cbb = m_bottomTextForegroundBrush.try_as<winrt::Microsoft::UI::Xaml::Media::SolidColorBrush>())
+				{
+					const auto cb = cbb.Color();
+					std::wstringstream colors;
+					colors << L"Bottom Text Foreground Brush Colors (" << cb.A << L", " << cb.R << L", " << cb.G << L", " << cb.B << L")\n";
+					OutputDebugStringW(colors.str().c_str());
+				}
+			}
+			catch (const std::exception& e)
+			{
+				std::string message = e.what();
+				int size_needed = MultiByteToWideChar(CP_UTF8, 0, message.c_str(), (int)message.size(), NULL, 0);
+				std::wstring wide_message(size_needed, 0);
+				MultiByteToWideChar(CP_UTF8, 0, message.c_str(), (int)message.size(), &wide_message[0], size_needed);
+				OutputDebugString(wide_message.c_str());
+			}
 			m_boldFontWeight = winrt::Windows::UI::Text::FontWeights::Bold();
 			m_normalFontWeight = winrt::Windows::UI::Text::FontWeights::Normal();
-			m_isFirstTime = false;
+			m_isFirstTime = (m_buttonBackgroundDefaultBrush == nullptr) || (m_topTextForegroundDefaultBrush == nullptr) || (m_bottomTextForegroundDefaultBrush == nullptr);
 		};
-		SetValue(m_buttonBackgroundProperty, m_buttonBackgroundDefaultBrush);
-		SetValue(m_topTextForegroundProperty, m_topTextForegroundDefaultBrush);
-		SetValue(m_bottomTextForegroundProperty, m_bottomTextForegroundDefaultBrush);
+		if (!m_isFirstTime)
+		{
+			SetValue(m_buttonBackgroundProperty, m_buttonBackgroundDefaultBrush);
+			SetValue(m_topTextForegroundProperty, m_topTextForegroundDefaultBrush);
+			SetValue(m_bottomTextForegroundProperty, m_bottomTextForegroundDefaultBrush);
 		SetValue(m_topTextFontWeightProperty, winrt::box_value(m_boldFontWeight));
 		SetValue(m_bottomTextFontWeightProperty, winrt::box_value(m_normalFontWeight));
+		};
 	}
 
 	winrt::Microsoft::UI::Xaml::DependencyProperty CalcButton::m_buttonBackgroundProperty =
