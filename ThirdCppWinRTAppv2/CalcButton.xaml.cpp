@@ -48,16 +48,6 @@ namespace winrt::ThirdCppWinRTAppv2::implementation
 		m_clickToken.remove(token);
 	}
 
-	winrt::event_token CalcButton::myPropertyChanged(winrt::Microsoft::UI::Xaml::Data::PropertyChangedEventHandler const& handler)
-	{
-		return PropertyChanged.add(handler);
-	};
-
-	void CalcButton::myPropertyChanged(winrt::event_token const& token) noexcept
-	{
-		PropertyChanged.remove(token);
-	};
-
 	// DependencyProperty Getters and Setters
 
 	winrt::hstring CalcButton::TopText()
@@ -68,7 +58,6 @@ namespace winrt::ThirdCppWinRTAppv2::implementation
 	void CalcButton::TopText(winrt::hstring const& value)
 	{
 		SetValue(m_topTextProperty, winrt::box_value(value));
-		PropertyChanged(*this, winrt::Microsoft::UI::Xaml::Data::PropertyChangedEventArgs{ L"TopText" });
 	}
 
 	winrt::hstring CalcButton::BottomText()
@@ -79,7 +68,6 @@ namespace winrt::ThirdCppWinRTAppv2::implementation
 	void CalcButton::BottomText(winrt::hstring const& value)
 	{
 		SetValue(m_bottomTextProperty, winrt::box_value(value));
-		PropertyChanged(*this, winrt::Microsoft::UI::Xaml::Data::PropertyChangedEventArgs{ L"BottomText" });
 	}
 
 	winrt::Microsoft::UI::Xaml::Media::Brush CalcButton::ButtonBackground()
@@ -90,7 +78,6 @@ namespace winrt::ThirdCppWinRTAppv2::implementation
 	void CalcButton::ButtonBackground(winrt::Microsoft::UI::Xaml::Media::Brush const& value)
 	{
 		SetValue(m_buttonBackgroundProperty, winrt::box_value(value));
-		PropertyChanged(*this, winrt::Microsoft::UI::Xaml::Data::PropertyChangedEventArgs{ L"ButtonBackground" });
 	}
 
 	winrt::Microsoft::UI::Xaml::Media::Brush CalcButton::TopTextForeground()
@@ -101,8 +88,7 @@ namespace winrt::ThirdCppWinRTAppv2::implementation
 	void CalcButton::TopTextForeground(winrt::Microsoft::UI::Xaml::Media::Brush const& value)
 	{
 		SetValue(m_topTextForegroundProperty, winrt::box_value(value));
-		PropertyChanged(*this, winrt::Microsoft::UI::Xaml::Data::PropertyChangedEventArgs{ L"TopTextForeground" });
-	}
+}
 
 	winrt::Microsoft::UI::Xaml::Media::Brush CalcButton::BottomTextForeground()
 	{
@@ -112,7 +98,6 @@ namespace winrt::ThirdCppWinRTAppv2::implementation
 	void CalcButton::BottomTextForeground(winrt::Microsoft::UI::Xaml::Media::Brush const& value)
 	{
 		SetValue(m_bottomTextForegroundProperty, winrt::box_value(value));
-		PropertyChanged(*this, winrt::Microsoft::UI::Xaml::Data::PropertyChangedEventArgs{ L"BottomTextForeground" });
 	}
 
 	winrt::Windows::UI::Text::FontWeight CalcButton::TopTextFontWeight()
@@ -123,7 +108,6 @@ namespace winrt::ThirdCppWinRTAppv2::implementation
 	void CalcButton::TopTextFontWeight(winrt::Windows::UI::Text::FontWeight const& value)
 	{
 		SetValue(m_topTextFontWeightProperty, winrt::box_value(value));
-		PropertyChanged(*this, winrt::Microsoft::UI::Xaml::Data::PropertyChangedEventArgs{L"topTextFontWeight" });
 	}
 
 	winrt::Windows::UI::Text::FontWeight CalcButton::BottomTextFontWeight()
@@ -134,7 +118,6 @@ namespace winrt::ThirdCppWinRTAppv2::implementation
 	void CalcButton::BottomTextFontWeight(winrt::Windows::UI::Text::FontWeight const& value)
 	{
 		SetValue(m_bottomTextFontWeightProperty, winrt::box_value(value));
-		PropertyChanged(*this, winrt::Microsoft::UI::Xaml::Data::PropertyChangedEventArgs{ L"bottomTextFontWeight" });
 	}
 
 	// DependencyProperty Property Getters
@@ -173,23 +156,52 @@ namespace winrt::ThirdCppWinRTAppv2::implementation
 		return m_bottomTextFontWeightProperty;
 	}
 
+	winrt::event_token CalcButton::PropertyChanged(winrt::Microsoft::UI::Xaml::Data::PropertyChangedEventHandler const& handler)
+	{
+		return m_propertyChanged.add(handler);
+	}
+
+	void CalcButton::PropertyChanged(winrt::event_token const& token) noexcept
+	{
+		m_propertyChanged.remove(token);
+	}
+
+	void CalcButton::RaisePropertyChanged(winrt::hstring const& propertyName)
+	{
+		m_propertyChanged(*this, winrt::Microsoft::UI::Xaml::Data::PropertyChangedEventArgs{ propertyName });
+	}
+
 	void CalcButton::OnPropertyChanged(Microsoft::UI::Xaml::DependencyObject const& d, Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
 	{
-		if (auto button = d.try_as<winrt::ThirdCppWinRTAppv2::CalcButton>())
+		if (auto control = d.try_as<winrt::ThirdCppWinRTAppv2::implementation::CalcButton>())
 		{
 			if (e.Property() == m_topTextFontWeightProperty)
 			{
-				if (auto top = button.FindName(L"TopTextBlock").try_as<winrt::Microsoft::UI::Xaml::Controls::TextBlock>())
-				{
-					top.FontWeight(button.TopTextFontWeight());
-				}
+				control->RaisePropertyChanged(L"TopTextFontWeight");
 			}
 			else if (e.Property() == m_bottomTextFontWeightProperty)
 			{
-				if (auto bottom = button.FindName(L"BottomTextBlock").try_as<winrt::Microsoft::UI::Xaml::Controls::TextBlock>())
-				{
-					bottom.FontWeight(button.BottomTextFontWeight());
-				}
+				control->RaisePropertyChanged(L"BottomTextFontWeight");
+			}
+			else if (e.Property() == m_topTextProperty)
+			{
+				control->RaisePropertyChanged(L"TopText");
+			}
+			else if (e.Property() == m_bottomTextProperty)
+			{
+				control->RaisePropertyChanged(L"BottomText");
+			}
+			else if (e.Property() == m_buttonBackgroundProperty)
+			{
+				control->RaisePropertyChanged(L"ButtonBackgroundBrush");
+			}
+			else if (e.Property() == m_bottomTextForegroundProperty)
+			{
+				control->RaisePropertyChanged(L"BottomTextForeground");
+			}
+			else if (e.Property() == m_topTextForegroundProperty)
+			{
+				control->RaisePropertyChanged(L"TopTextForeground");
 			}
 		}
 	}
@@ -239,6 +251,7 @@ namespace winrt::ThirdCppWinRTAppv2::implementation
 					{
 						auto foreground = control.BottomTextForeground();
 						bottom.Foreground(foreground);
+
 					}
 				}
 				catch (winrt::hresult_error const& ex)

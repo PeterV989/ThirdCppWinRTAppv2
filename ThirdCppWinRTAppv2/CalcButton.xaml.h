@@ -1,11 +1,10 @@
 #pragma once
 
-#include <winrt/Microsoft.UI.Xaml.Data.h>
 #include "CalcButton.g.h"
 
 namespace winrt::ThirdCppWinRTAppv2::implementation
 {
-	struct CalcButton : CalcButtonT<CalcButton, Microsoft::UI::Xaml::Controls::UserControl>
+	struct CalcButton : CalcButtonT<CalcButton, Microsoft::UI::Xaml::Controls::UserControl, Microsoft::UI::Xaml::Data::INotifyPropertyChanged>
 	{
 		CalcButton();
 
@@ -44,11 +43,10 @@ namespace winrt::ThirdCppWinRTAppv2::implementation
 		winrt::event_token CalcButtonClicked(winrt::Windows::Foundation::TypedEventHandler<ThirdCppWinRTAppv2::CalcButton, winrt::Microsoft::UI::Xaml::RoutedEventArgs> const& handler);
 		void CalcButtonClicked(winrt::event_token const& token) noexcept;
 		void myCalcButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& args);
+		winrt::event<winrt::Windows::Foundation::TypedEventHandler<ThirdCppWinRTAppv2::CalcButton, winrt::Microsoft::UI::Xaml::RoutedEventArgs>> m_clickToken;
 
-		winrt::event_token myPropertyChanged(winrt::Microsoft::UI::Xaml::Data::PropertyChangedEventHandler const& handler);
-		void myPropertyChanged(winrt::event_token const& token) noexcept;
-		static void OnPropertyChanged(Microsoft::UI::Xaml::DependencyObject const& d, Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
-		
+		winrt::event_token PropertyChanged(winrt::Microsoft::UI::Xaml::Data::PropertyChangedEventHandler const& handler);
+		void PropertyChanged(winrt::event_token const& token) noexcept;
 	private:
 		static winrt::Microsoft::UI::Xaml::DependencyProperty m_topTextProperty;
 		static winrt::Microsoft::UI::Xaml::DependencyProperty m_bottomTextProperty;
@@ -75,11 +73,12 @@ namespace winrt::ThirdCppWinRTAppv2::implementation
 		winrt::Microsoft::UI::Xaml::Controls::TextBlock m_topTextBlock{ nullptr };
 		winrt::Microsoft::UI::Xaml::Controls::TextBlock m_bottomTextBlock{ nullptr };
 
-		winrt::event<winrt::Windows::Foundation::TypedEventHandler<ThirdCppWinRTAppv2::CalcButton, winrt::Microsoft::UI::Xaml::RoutedEventArgs>> m_clickToken;
-		winrt::event<winrt::Microsoft::UI::Xaml::Data::PropertyChangedEventHandler> PropertyChanged;
-
 		static void OnButtonBackgroundChanged(Microsoft::UI::Xaml::DependencyObject const& d, Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
 		static void OnTextForegroundChanged(Microsoft::UI::Xaml::DependencyObject const& d, Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
+
+		winrt::event<winrt::Microsoft::UI::Xaml::Data::PropertyChangedEventHandler> m_propertyChanged;
+		void RaisePropertyChanged(winrt::hstring const& propertyName);
+		static void OnPropertyChanged(winrt::Microsoft::UI::Xaml::DependencyObject const& d, winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
 	};
 }
 
